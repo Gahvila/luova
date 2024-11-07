@@ -1,0 +1,4 @@
+name: luova
+version: '${version}'
+main: net.gahvila.luova.Luova
+api-version: '1.21'
