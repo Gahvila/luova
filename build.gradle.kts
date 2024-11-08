@@ -4,7 +4,8 @@ plugins {
 }
 
 group = "net.gahvila"
-version = "1.0-SNAPSHOT"
+version = findProperty("version")!!
+description = "luova"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
@@ -34,14 +35,6 @@ dependencies {
 }
 
 tasks {
-    processResources {
-        val props = mapOf("version" to project.version)
-        inputs.properties(props)
-        filteringCharset = "UTF-8"
-        filesMatching("paper-plugin.yml") {
-            expand(props)
-        }
-    }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
@@ -59,9 +52,11 @@ tasks {
         relocate ("com.github.stefvanschie.inventoryframework", "net.gahvila.luova.shaded.inventoryframework")
     }
 
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
-        }
+    processResources {
+        expand(project.properties)
     }
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
