@@ -14,7 +14,22 @@ repositories {
 }
 
 dependencies {
+    //paper
     compileOnly ("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT")
+
+    //plotsquared
+    implementation(platform("com.intellectualsites.bom:bom-newest:1.50"))
+    compileOnly("com.intellectualsites.plotsquared:plotsquared-core")
+    compileOnly("com.intellectualsites.plotsquared:plotsquared-bukkit") { isTransitive = false }
+
+    //commandapi
+    compileOnly("dev.jorel:commandapi-annotations:9.6.1")
+    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:9.6.1")
+    annotationProcessor("dev.jorel:commandapi-annotations:9.6.1")
+
+    //misc
+    implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
+    implementation ("com.github.stefvanschie.inventoryframework:IF:0.10.18")
 }
 
 tasks {
@@ -38,9 +53,9 @@ tasks {
     shadowJar {
         archiveFileName.set("${rootProject.name}-${version}.jar")
 
-        relocate("dev.jorel.commandapi", "net.gahvila.survival.shaded.commandapi")
-        relocate("de.leonhard.storage", "net.gahvila.survival.shaded.storage")
-        relocate ("com.github.stefvanschie.inventoryframework", "net.gahvila.survival.shaded.inventoryframework")
+        relocate("dev.jorel.commandapi", "net.gahvila.luova.shaded.commandapi")
+        relocate("de.leonhard.storage", "net.gahvila.luova.shaded.storage")
+        relocate ("com.github.stefvanschie.inventoryframework", "net.gahvila.luova.shaded.inventoryframework")
     }
 
     java {
